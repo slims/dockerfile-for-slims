@@ -1,4 +1,4 @@
-FROM strongy/slims:latest
+FROM php:7.4-apache
 # For SLiMS 9 version (Bulian) with https support
 MAINTAINER Hendro Wicaksono <hendrowicaksono@gmail.com>
 
@@ -40,14 +40,14 @@ RUN set -ex; \
 		opcache \
 		zip \
 		gettext \
-		pdo_mysql \
+		#mcrypt \
 		#mbstring \
 		#soap \
 	; \
 	#pecl install imagick-3.4.4 yaz-1.2.3 ; \
-	#pecl install imagick-3.4.4 ; \
-	#pear install File_MARC-1.4.1 \
-	#docker-php-ext-enable imagick ; \
+	pecl install imagick-3.4.4 ; \
+	pear install File_MARC-1.4.1 \
+	docker-php-ext-enable imagick ; \
 	apt-mark auto '.*' > /dev/null; \
 	apt-mark manual $savedAptMark; \
 	ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
